@@ -1,10 +1,9 @@
 .DS_Store
 node_modules
-/src/json
 
 #dist
 src.zip
-/src/temp
+/src
 
 # Log files
 npm-debug.log*

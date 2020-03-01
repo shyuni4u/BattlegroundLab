@@ -35,7 +35,7 @@
 
       <section class="sub-info">
         <div class="box sm-hide">
-          <span class="box-title"><b-icon-flag-fill></b-icon-flag-fill> 집계</span>
+          <span class="box-title"><b-icon-flag-fill></b-icon-flag-fill> 집계 정보</span>
           
           <ul>
             <li>집계방법: 트위치 다시보기 기준</li>
@@ -45,7 +45,7 @@
         </div>
 
         <div class="box sm-hide">
-          <span class="box-title"><b-icon-bar-chart-fill></b-icon-bar-chart-fill> 그래프 보는 방법</span>
+          <span class="box-title"><b-icon-bar-chart-fill></b-icon-bar-chart-fill> 그래프 정보</span>
           <ul>
             <li>막대 높이: 플레이 총합</li>
             <li><div class="mini-bar" :style="{ backgroundColor: color_list[0] }"></div> : 1등 횟수</li>
