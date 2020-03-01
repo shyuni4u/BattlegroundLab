@@ -107,6 +107,7 @@ export default {
 }
 #nav {
   background-color: #5383e8;
+  display: none;
   #web-title {
     font-family: '나눔바른고딕';
     font-weight: bold;

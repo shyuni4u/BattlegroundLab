@@ -4,10 +4,11 @@ import router from "./router";
 import store from "./store";
 import i18n from "@/plugins/i18n";
 import FlagIcon from "vue-flag-icon";
-import BootstrapVue from 'bootstrap-vue';
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 
 Vue.use(FlagIcon);
 Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 Vue.config.productionTip = false;
 
 import 'bootstrap/dist/css/bootstrap.css'
