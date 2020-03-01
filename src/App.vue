@@ -75,11 +75,6 @@ export default {
               title: 'menuProjectSubAndroid'
             }
           ]
-        },
-        {
-          linkTo: '/github',
-          title: 'menuGithub',
-          sub: []
         }
         */
       ],
@@ -108,8 +103,7 @@ export default {
 <style lang="scss">
 #app {
   background-color: #eaeaea;
-  font-family: 'Helvetica, "Malgun Gothic", "Apple SD Gothic Neo", AppleGothic, Dotum, Arial, Tahoma;
-Helvetica,"Malgun Gothic","Apple SD Gothic Neo",AppleGothic,Dotum,Arial,Tahoma'
+  font-family: 'Helvetica, "Malgun Gothic", "Apple SD Gothic Neo", AppleGothic, Dotum, Arial, Tahoma, Helvetica,"Malgun Gothic","Apple SD Gothic Neo",AppleGothic,Dotum,Arial,Tahoma';
 }
 #nav {
   background-color: #5383e8;
@@ -159,7 +153,7 @@ Helvetica,"Malgun Gothic","Apple SD Gothic Neo",AppleGothic,Dotum,Arial,Tahoma'
 
 #container {
   margin: 0 auto;
-  max-width: 1080px;
+  max-width: 1280px;
   text-align: left;
   zoom: 1;
 }

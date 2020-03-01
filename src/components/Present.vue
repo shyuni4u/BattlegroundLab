@@ -125,7 +125,7 @@ export default {
       });
 
       this.heroPlacement = {
-        title: { text: 'Hero' },
+        title: { text: '영웅픽률/순위' },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -135,7 +135,6 @@ export default {
             }
             /*
             - formatter 검색
-            실데이터 입력: EndoZoa (https://docs.google.com/spreadsheets/d/1bzKWkI8QHKf6S5AqMtccSCp4Wmrrh1GRCvLsBhnfO78/edit#gid=1789136617)
             정렬 적용
             AdFit 적용
             그래프 소개: http://www.inven.co.kr/board/hs/3508/15636
