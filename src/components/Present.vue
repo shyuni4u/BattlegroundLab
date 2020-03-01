@@ -59,8 +59,7 @@
           <ins class="kakao_ad_area" style="display:none;" 
           data-ad-unit    = "DAN-1jyoczcff0x10" 
           data-ad-width   = "300" 
-          data-ad-height  = "250"></ins> 
-          <div v-el:scriptHolder></div>
+          data-ad-height  = "250"></ins>
         </div>
       </section>
     </div>
