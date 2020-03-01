@@ -3,7 +3,7 @@ node_modules
 
 #dist
 src.zip
-/src
+/src/json
 
 # Log files
 npm-debug.log*
