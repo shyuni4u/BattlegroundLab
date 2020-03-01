@@ -5,9 +5,9 @@
         <b-form class="filter_form">
           <b-input-group class="mb-2 datepicker">
             <label for="datepicker-start">시작</label>
-            <b-form-datepicker id="datepicker-start" size="sm" v-model="startDate" class="mb-2" min="2020.02.28"></b-form-datepicker>
+            <b-form-datepicker id="datepicker-start" size="sm" v-model="startDate" class="mb-2" min="2020.02.28" @input="change_filter()"></b-form-datepicker>
             <label for="datepicker-end"> ~ 종료</label>
-            <b-form-datepicker id="datepicker-end" size="sm" v-model="endDate" class="mb-2" min="2020.02.28"></b-form-datepicker>
+            <b-form-datepicker id="datepicker-end" size="sm" v-model="endDate" class="mb-2" min="2020.02.28" @input="change_filter()"></b-form-datepicker>
           </b-input-group>
           <b-input-group class="mb-2 streamer">
             <span class="">선택</span>
@@ -26,7 +26,7 @@
     <div class="main-container">
       <section class="main-info">
         <div class="box hero_placement">
-          <v-chart class="wide" :options="heroPlacement" @mouseover="mouseover_hero_name" />
+          <v-chart class="wide" :options="heroPlacement" /> <!--  @mouseover="mouseover_hero_name" -->
         </div>
         <div class="box comp_placement">
           <v-chart class="wide" :options="compPlacement" />
@@ -88,7 +88,7 @@ export default {
       legend_list: ['1st', '2~4', '5~8', 'AVG'],
       color_list: ['#ffc81b', '#5b6777', '#f15b5d', '#d88d73'],
       recentUpdate: '2020-02-29',
-      startDate: '2020-02-28',
+      startDate: '2020-02-27',
       endDate: new Date(),
       streamers: streamJson,
       checkStremers: streamJson.map(el => el.id),
@@ -117,16 +117,19 @@ export default {
       this.load_hero_placement();
       this.load_comp_placement();
     },
+    /*
     mouseover_hero_name (param) {
       if (param.componentType == 'xAxis') {
         console.log(param.value);
       }
     },
+    */
     array_filter_log () {
+      let that = this;
       let arr = this.checkStremers;
       return this.log.filter(function(el) {
-        //  need if filter of date
-        return arr.includes(el.name);   // include checked members ?
+        return arr.includes(el.name)
+          && (new Date(that.startDate).getTime() <= new Date(el.date).getTime() && new Date(that.endDate).getTime() >= new Date(el.date).getTime());   // include checked members ?
       });
     },
     load_hero_placement () {
