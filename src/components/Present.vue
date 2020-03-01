@@ -460,14 +460,11 @@ div.main-container {
     }
   }
   .filter {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column-reverse;
     .div-form {
       flex: 100% 0 0;
     }
     .div-title {
-      flex: 100% 0 0;
+      display: none;
     }
   }
 }
