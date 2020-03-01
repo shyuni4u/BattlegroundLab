@@ -43,6 +43,9 @@
       <router-view />
     </div>
     <div id="footer">
+      현재 백수라 시간이 있어서 만들어보았습니다. 피드백 및 연락은 메일로 부탁드립니다.<br/>
+      e-mail: shyuniz@naver.com | home: <a href="https://shyuni4u.github.io/homepage/dist/">https://shyuni4u.github.io/homepage/dist/</a><br/>
+      Copyright 2020. shyuniz. All rights reserved.<br/>
     </div>
   </div>
 </template>
@@ -161,7 +164,14 @@ export default {
 
 #footer {
   background-color: #0c0c13;
-  height: 100px;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+  height: 80px;
   width: 100%;
+  padding: 10px;
+  a {
+    color: #fff;
+  }
 }
 </style>
