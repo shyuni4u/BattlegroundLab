@@ -40,6 +40,7 @@
               :fields="heroFields"
               class="placement-list"
               responsive="sm"
+              sort-direction="desc"
               head-variant="dark">
                 <template v-slot:table-colgroup="scope">
                   <col
@@ -142,6 +143,7 @@
               :fields="compFields"
               class="placement-list"
               responsive="sm"
+              sort-direction="desc"
               head-variant="dark">
                 <template v-slot:table-colgroup="scope">
                   <col
