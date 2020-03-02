@@ -126,7 +126,6 @@ export default {
       let that = this;
       let arr = this.checkStremers;
       return this.log.filter(function(el) {
-        console.log(new Date(el.date).getTime(), 'check')
         return arr.includes(el.name)
           && (new Date(that.startDate).getTime() <= new Date(el.date).getTime() && new Date(that.endDate).getTime() >= new Date(el.date).getTime());   // include checked members ?
       });
