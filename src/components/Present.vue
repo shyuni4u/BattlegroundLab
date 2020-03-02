@@ -623,11 +623,11 @@ div.main-container {
     display: flex;
     margin-bottom: 0px;
     .progress-in-cell {
-      flex: 80% 1 1;
+      flex: 70% 0 0;
       align-self: center;
     }
     .span-with-progress {
-      flex: 20% 1 1;
+      flex: 30% 0 0;
       text-indent: 5px;
       font-size: 0.9em;
     }
