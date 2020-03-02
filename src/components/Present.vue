@@ -253,7 +253,7 @@ export default {
       max_ratio: 100,
       legend_list: ['1st', '2~4', '5~8', 'AVG'],
       color_list: ['#ffc81b', '#5b6777', '#f15b5d', '#d88d73'],
-      recentUpdate: '2020.03.02 00:36',     //  datetime of updated data
+      recentUpdate: '2020.03.02 12:36',     //  datetime of updated data
       startDate: new Date('2020-02-27T00:00:00+09:00'),
       endDate: new Date(),
       streamers: streamJson,
@@ -563,7 +563,6 @@ ul {
   }
 }
 div.main-container {
-  padding-top: 10px;
   .box {
     border: 1px solid #cdd2d2;
     box-shadow: 0 1px #dcdfdf;
