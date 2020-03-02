@@ -250,7 +250,7 @@ export default {
     const streamJson = StreamerData;
     //let that = this;
     return {
-      max_hero_ratio: 10,
+      max_hero_ratio: 20,
       max_comp_ratio: 20,
       max_ratio: 100,
       legend_list: ['1st', '2~4', '5~8', 'AVG'],
