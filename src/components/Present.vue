@@ -23,43 +23,206 @@
       </div>
     </div>
 
+    <div class="banner_wrap">
+      <ins class="kakao_ad_area" style="display:none;" 
+      data-ad-unit    = "DAN-1jyoczcff0x10" 
+      data-ad-width   = "300" 
+      data-ad-height  = "250"></ins>
+    </div>
+
     <div class="main-container">
       <section class="main-info">
-        <div class="box hero_placement">
-          <v-chart class="wide" :options="heroPlacement" /> <!--  @mouseover="mouseover_hero_name" -->
-        </div>
-        <div class="box comp_placement">
-          <v-chart class="wide" :options="compPlacement" />
-        </div>
-      </section>
+        <div class="box">
+          <b-tabs card>
+            <b-tab title="영웅" active>
+              <b-table
+              :items="heroTable"
+              :fields="heroFields"
+              class="placement-list"
+              responsive="sm"
+              head-variant="dark">
+                <template v-slot:table-colgroup="scope">
+                  <col
+                    v-for="field in scope.fields"
+                    :key="field.key"
+                    :style="{ width: (field.key === 'index' ? '50px'
+                      : (field.key === 'pick_count' || field.key === 'win_count' || field.key === 'good_count' || field.key === 'bad_count' || field.key === 'avg') ? '120px'
+                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '200px'
+                      : '250px') }"
+                  >
+                </template>
+              
+                <template v-slot:cell(index)="data">
+                  <span class="">{{ data.index + 1 }}</span>
+                </template>
 
-      <section class="sub-info">
-        <div class="box sm-hide">
-          <span class="box-title"><b-icon-flag-fill></b-icon-flag-fill> 집계 정보</span>
-          
-          <ul>
-            <li>집계방법: 트위치 다시보기 기준</li>
-            <li>집계기간: 16.4.0 패치 이후</li>
-            <li>최근 업데이트: 2020.03.02 00:36</li>
-          </ul>
-        </div>
+                <template v-slot:cell(hero)="data">
+                  <img class="img-hero-cell" :src="getImgUrl(data.value)" :alt="data.value" :thumbnail="getImgUrl('thumbnail')" />
+                  <b class="text-info">{{ capitalizeFLetter(data.value) }}</b>
+                </template>
 
-        <div class="box sm-hide">
-          <span class="box-title"><b-icon-bar-chart-fill></b-icon-bar-chart-fill> 그래프 정보</span>
-          <ul>
-            <li>막대 높이: 플레이 총합</li>
-            <li><div class="mini-bar" :style="{ backgroundColor: color_list[0] }"></div> : 1등 횟수</li>
-            <li><div class="mini-bar" :style="{ backgroundColor: color_list[1] }"></div> : 순방 횟수</li>
-            <li><div class="mini-bar" :style="{ backgroundColor: color_list[2] }"></div> : 패배 횟수</li>
-            <li><div class="mini-line" :style="{ backgroundColor: color_list[3] }"></div> : 평균 순위</li>
-          </ul>
-        </div>
+                <template v-slot:cell(pick_count)="data">
+                  <span class="text-success">{{ data.value }}</span>
+                </template>
 
-        <div class="banner_wrap">
-          <ins class="kakao_ad_area" style="display:none;" 
-          data-ad-unit    = "DAN-1jyoczcff0x10" 
-          data-ad-width   = "300" 
-          data-ad-height  = "250"></ins>
+                <template v-slot:cell(pick_ratio)="data">
+                  <ul class="progress-include-span">
+                    <li class="progress-in-cell">
+                      <b-progress class="" :max="max_hero_ratio">
+                        <b-progress-bar :value="data.value" :variant="(data.value < 5 ? 'secondary' : 'success')"></b-progress-bar>
+                      </b-progress>
+                    </li>
+                    <li class="span-with-progress">
+                      <span class="cell">{{ data.value.toFixed(2) }}%</span>
+                    </li>
+                  </ul>
+                </template>
+
+                <template v-slot:cell(avg)="data">
+                  <span :class="(data.value <= 4) ? 'cell above' : 'cell'">{{ data.value.toFixed(2) }}</span>
+                </template>
+
+                <template v-slot:cell(win_count)="data">
+                  <span class="text-warning">{{ data.value }}</span>
+                </template>
+
+                <template v-slot:cell(win_ratio)="data">
+                  <ul class="progress-include-span">
+                    <li class="progress-in-cell">
+                      <b-progress class="" :max="max_ratio">
+                        <b-progress-bar :value="data.value" variant="warning"></b-progress-bar>
+                      </b-progress>
+                    </li>
+                    <li class="span-with-progress">
+                      <span class="cell">{{ data.value.toFixed(2) }}%</span>
+                    </li>
+                  </ul>
+                </template>
+
+                <template v-slot:cell(good_count)="data">
+                  <span class="text-info">{{ data.value }}</span>
+                </template>
+
+                <template v-slot:cell(good_ratio)="data">
+                  <ul class="progress-include-span">
+                    <li class="progress-in-cell">
+                      <b-progress class="" :max="max_ratio">
+                        <b-progress-bar :value="data.value" variant="info"></b-progress-bar>
+                      </b-progress>
+                    </li>
+                    <li class="span-with-progress">
+                      <span :class="(data.value > 90) ? 'cell above' : 'cell'">{{ data.value.toFixed(2) }}%</span>
+                    </li>
+                  </ul>
+                </template>
+
+                <template v-slot:cell(bad_count)="data">
+                  <span class="text-danger">{{ data.value }}</span>
+                </template>
+
+                <!--
+                <template v-slot:cell(bad_ratio)="data">
+                  <ul class="progress-include-span">
+                    <li class="progress-in-cell">
+                      <b-progress class="" :max="max_ratio">
+                        <b-progress-bar :value="data.value" variant="danger"></b-progress-bar>
+                      </b-progress>
+                    </li>
+                    <li class="span-with-progress">
+                      <span class="cell">{{ data.value }}%</span>
+                    </li>
+                  </ul>
+                </template>
+                -->
+              </b-table>
+            </b-tab>
+            <b-tab title="조합">
+              <b-table
+              :items="compTable"
+              :fields="compFields"
+              class="placement-list"
+              responsive="sm"
+              head-variant="dark">
+                <template v-slot:table-colgroup="scope">
+                  <col
+                    v-for="field in scope.fields"
+                    :key="field.key"
+                    :style="{ width: (field.key === 'index' ? '50px'
+                      : (field.key === 'pick_count' || field.key === 'win_count' || field.key === 'good_count' || field.key === 'bad_count' || field.key === 'avg') ? '120px'
+                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '200px'
+                      : '250px') }"
+                  >
+                </template>
+              
+                <template v-slot:cell(index)="data">
+                  <span class="">{{ data.index + 1 }}</span>
+                </template>
+
+                <template v-slot:cell(comp)="data">
+                  <b class="text-info">{{ capitalizeFLetter(data.value) }}</b>
+                </template>
+
+                <template v-slot:cell(pick_count)="data">
+                  <span class="text-success">{{ data.value }}</span>
+                </template>
+
+                <template v-slot:cell(pick_ratio)="data">
+                  <ul class="progress-include-span">
+                    <li class="progress-in-cell">
+                      <b-progress class="" :max="max_comp_ratio">
+                        <b-progress-bar :value="data.value" :variant="(data.value < 5 ? 'secondary' : 'success')"></b-progress-bar>
+                      </b-progress>
+                    </li>
+                    <li class="span-with-progress">
+                      <span class="cell">{{ data.value.toFixed(2) }}%</span>
+                    </li>
+                  </ul>
+                </template>
+
+                <template v-slot:cell(avg)="data">
+                  <span :class="(data.value <= 4) ? 'cell above' : 'cell'">{{ data.value.toFixed(2) }}</span>
+                </template>
+
+                <template v-slot:cell(win_count)="data">
+                  <span class="text-warning">{{ data.value }}</span>
+                </template>
+
+                <template v-slot:cell(win_ratio)="data">
+                  <ul class="progress-include-span">
+                    <li class="progress-in-cell">
+                      <b-progress class="" :max="max_ratio">
+                        <b-progress-bar :value="data.value" variant="warning"></b-progress-bar>
+                      </b-progress>
+                    </li>
+                    <li class="span-with-progress">
+                      <span class="cell">{{ data.value.toFixed(2) }}%</span>
+                    </li>
+                  </ul>
+                </template>
+
+                <template v-slot:cell(good_count)="data">
+                  <span class="text-info">{{ data.value }}</span>
+                </template>
+
+                <template v-slot:cell(good_ratio)="data">
+                  <ul class="progress-include-span">
+                    <li class="progress-in-cell">
+                      <b-progress class="" :max="max_ratio">
+                        <b-progress-bar :value="data.value" variant="info"></b-progress-bar>
+                      </b-progress>
+                    </li>
+                    <li class="span-with-progress">
+                      <span :class="(data.value > 90) ? 'cell above' : 'cell'">{{ data.value.toFixed(2) }}%</span>
+                    </li>
+                  </ul>
+                </template>
+
+                <template v-slot:cell(bad_count)="data">
+                  <span class="text-danger">{{ data.value }}</span>
+                </template>
+              </b-table>
+            </b-tab>
+          </b-tabs>
         </div>
       </section>
     </div>
@@ -68,32 +231,156 @@
 
 <script>
 //import GithubListVue from './GithubList.vue'
-import ECharts from 'vue-echarts'
+//import ECharts from 'vue-echarts'
 import LogData from '@/json/data.json';
 import StreamerData from '@/json/streamer.json';
 
-import 'echarts/lib/chart/line'
-import 'echarts/lib/chart/bar';
-import 'echarts/lib/component/tooltip';
-import 'echarts/lib/component/title';
-import 'echarts/lib/component/legend';
+//import 'echarts/lib/chart/line'
+//import 'echarts/lib/chart/bar';
+//import 'echarts/lib/component/tooltip';
+//import 'echarts/lib/component/title';
+//import 'echarts/lib/component/legend';
 
 export default {
   name: 'present',
-  components: { 'v-chart': ECharts },
+  //components: { 'v-chart': ECharts },
   data: () => {
     const streamJson = StreamerData;
+    //let that = this;
     return {
+      max_hero_ratio: 10,
+      max_comp_ratio: 20,
+      max_ratio: 100,
       legend_list: ['1st', '2~4', '5~8', 'AVG'],
       color_list: ['#ffc81b', '#5b6777', '#f15b5d', '#d88d73'],
-      recentUpdate: '2020-02-29',
-      startDate: '2020-02-27',
+      recentUpdate: '2020.03.02 00:36',     //  datetime of updated data
+      startDate: new Date('2020-02-27T00:00:00+09:00'),
       endDate: new Date(),
       streamers: streamJson,
       checkStremers: streamJson.map(el => el.id),
-      heroPlacement: {},   //  hero chart option
+      heroTable: {},   //  hero chart option
       compPlacement: {},   //  comp chart option
-      log: LogData
+      log: LogData,
+      heroFields: [
+        {
+          key: 'index',
+          label: '#',
+          sortable: false
+        },
+        
+        {
+          key: 'hero',
+          label: '영웅',
+          sortable: false
+        },
+        {
+          key: 'pick_count',
+          label: '플레이 수',
+          sortable: true
+        },
+        {
+          key: 'pick_ratio',
+          label: '픽률',
+          sortable: true
+        },
+        {
+          key: 'avg',
+          label: '평균등수',
+          sortable: true
+        },
+        {
+          key: 'win_count',
+          label: '1등',
+          sortable: true
+        },
+        {
+          key: 'win_ratio',
+          label: '1등 확률',
+          sortable: true
+        },
+        {
+          key: 'good_count',
+          label: '순방',
+          sortable: true
+        },
+        {
+          key: 'good_ratio',
+          label: '순방 확률',
+          sortable: true
+        },
+        {
+          key: 'bad_count',
+          label: '패배',
+          sortable: true
+        }
+        /*
+        ,{
+          key: 'bad_ratio',
+          label: '확률',
+          sortable: true
+        }
+        */
+      ],
+      compFields: [
+        {
+          key: 'index',
+          label: '#',
+          sortable: false
+        },
+        
+        {
+          key: 'comp',
+          label: '조합',
+          sortable: false
+        },
+        {
+          key: 'pick_count',
+          label: '플레이 수',
+          sortable: true
+        },
+        {
+          key: 'pick_ratio',
+          label: '픽률',
+          sortable: true
+        },
+        {
+          key: 'avg',
+          label: '평균등수',
+          sortable: true
+        },
+        {
+          key: 'win_count',
+          label: '1등',
+          sortable: true
+        },
+        {
+          key: 'win_ratio',
+          label: '1등 확률',
+          sortable: true
+        },
+        {
+          key: 'good_count',
+          label: '순방',
+          sortable: true
+        },
+        {
+          key: 'good_ratio',
+          label: '순방 확률',
+          sortable: true
+        },
+        {
+          key: 'bad_count',
+          label: '패배',
+          sortable: true
+        }
+        /*
+        ,{
+          key: 'bad_ratio',
+          label: '확률',
+          sortable: true
+        }
+        */
+      ]
     }
   },
   created() {
@@ -111,17 +398,14 @@ export default {
     capitalizeFLetter (str) {
       return str[0].toUpperCase() + str.slice(1);
     },
+    getImgUrl(path) {
+      let image = require.context('@/assets/hero/', false, /\.png$/);
+      return image('./' + path + '.png');
+    },
     change_filter () {
       this.load_hero_placement();
       this.load_comp_placement();
     },
-    /*
-    mouseover_hero_name (param) {
-      if (param.componentType == 'xAxis') {
-        console.log(param.value);
-      }
-    },
-    */
     array_filter_log () {
       let that = this;
       let arr = this.checkStremers;
@@ -139,102 +423,48 @@ export default {
       arr_hero.forEach((el) => {
         let obj = {
           hero: el,
-          win: 0,
-          good: 0,
-          bad: 0,
-          avg: []
+          win_count: 0,
+          good_count: 0,
+          bad_count: 0,
+          pick_count: 0,
+          win_ratio: 0,
+          good_ratio: 0,
+          bad_ratio: 0,
+          pick_ratio: 0,
+          sum: 0,
+          avg: 0
         };
         chart_data.push(obj);
       });
 
       this.array_filter_log().forEach((el) => {
         //arr_hero.indexOf(el.hero): idx of { chart_data[idx] }
+        const idx = arr_hero.indexOf(el.hero);
         if (el.placement == 1) {
-          chart_data[arr_hero.indexOf(el.hero)].win++;
+          chart_data[idx].win_count++;
         }
-        else if (el.placement > 1 && el.placement < 5) {
-          chart_data[arr_hero.indexOf(el.hero)].good++;
+        if (el.placement >= 1 && el.placement <= 4) {
+          chart_data[idx].good_count++;
         } else {
-          chart_data[arr_hero.indexOf(el.hero)].bad++;
+          chart_data[idx].bad_count++;
         }
-        chart_data[arr_hero.indexOf(el.hero)].avg.push(el.placement);
+        chart_data[idx].pick_count++;
+        chart_data[idx].sum += el.placement;
+      });
+      
+      chart_data.forEach((el) => {
+        el.win_ratio = (el.win_count / el.pick_count * 100);
+        el.good_ratio = (el.good_count / el.pick_count * 100);
+        //el.bad_ratio = (el.bad_count / el.pick_count * 100);
+        el.pick_ratio = (el.pick_count / log_hero_list.length * 100);
+        el.avg = el.sum / el.pick_count;
       });
 
-      chart_data.sort((el1, el2) => {     //  sort of el.hero
-        if (el1.hero > el2.hero) return 1;
+      chart_data.sort((el1, el2) => {     //  sort of el.comp
+        if (el1.pick_ratio < el2.pick_ratio) return 1;
         else return -1;
       });
-
-      this.heroPlacement = {
-        title: { text: '영웅픽률/순위' },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross',
-            crossStyle: {
-              color: '#999'
-            }
-          }
-        },
-        legend: {
-          data: this.legend_list
-        },
-        color: this.color_list,
-        xAxis: [
-          {
-            type: 'category',
-            data: chart_data.map(el => this.capitalizeFLetter(el.hero)),
-            axisLabel: {
-              interval: 0,
-              rotate: 30
-            },
-            axisPointer: {
-              type: 'shadow'
-            }
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value',
-            name: '게임수',
-            interval: 5
-          },
-          {
-            type: 'value',
-            name: '평균등수',
-            min: 0,
-            max: 8,
-            interval: 8,
-            inverse: true
-          }
-        ],
-        series: [
-          {
-            name: this.legend_list[0],
-            type: 'bar',
-            stack: 'one',
-            data: chart_data.map(el => el.win)
-          },
-          {
-            name: this.legend_list[1],
-            type: 'bar',
-            stack: 'one',
-            data: chart_data.map(el => el.good)
-          },
-          {
-            name: this.legend_list[2],
-            type: 'bar',
-            stack: 'one',
-            data: chart_data.map(el => el.bad)
-          },
-          {
-            name: this.legend_list[3],
-            type: 'line',
-            yAxisIndex: 1,
-            data: chart_data.map(el => (el.avg.reduce((a, b) => a + b) / el.avg.length).toFixed(2))
-          }
-        ]
-      }
+      this.heroTable = chart_data;
     },
     load_comp_placement () {
       let log_comp_list = this.array_filter_log().map(el => el.comp);
@@ -245,108 +475,56 @@ export default {
       arr_comp.forEach((el) => {
         let obj = {
           comp: el,
-          win: 0,
-          good: 0,
-          bad: 0,
-          avg: []
+          win_count: 0,
+          good_count: 0,
+          bad_count: 0,
+          pick_count: 0,
+          win_ratio: 0,
+          good_ratio: 0,
+          bad_ratio: 0,
+          pick_ratio: 0,
+          sum: 0,
+          avg: 0
         };
         chart_data.push(obj);
       });
 
       this.array_filter_log().forEach((el) => {
         //arr_comp.indexOf(el.comp): idx of { chart_data[idx] }
+        const idx = arr_comp.indexOf(el.comp);
         if (el.placement == 1) {
-          chart_data[arr_comp.indexOf(el.comp)].win++;
+          chart_data[idx].win_count++;
         }
-        else if (el.placement > 1 && el.placement < 5) {
-          chart_data[arr_comp.indexOf(el.comp)].good++;
+        if (el.placement >= 1 && el.placement <= 4) {
+          chart_data[idx].good_count++;
         } else {
-          chart_data[arr_comp.indexOf(el.comp)].bad++;
+          chart_data[idx].bad_count++;
         }
-        chart_data[arr_comp.indexOf(el.comp)].avg.push(el.placement);
+        chart_data[idx].pick_count++;
+        chart_data[idx].sum += el.placement;
+      });
+      
+      chart_data.forEach((el) => {
+        el.win_ratio = (el.win_count / el.pick_count * 100);
+        el.good_ratio = (el.good_count / el.pick_count * 100);
+        el.pick_ratio = (el.pick_count / log_comp_list.length * 100);
+        el.avg = el.sum / el.pick_count;
       });
 
       chart_data.sort((el1, el2) => {     //  sort of el.comp
-        if (el1.comp > el2.comp) return 1;
+        if (el1.pick_ratio < el2.pick_ratio) return 1;
         else return -1;
       });
-
-      this.compPlacement = {
-        title: { text: '조합픽률/순위' },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross',
-            crossStyle: {
-              color: '#999'
-            }
-          }
-        },
-        legend: {
-          data: this.legend_list
-        },
-        color: this.color_list,
-        xAxis: [
-          {
-            type: 'category',
-            data: chart_data.map(el => this.capitalizeFLetter(el.comp)),
-            axisLabel: {
-              interval: 0,
-              rotate: 30
-            },
-            axisPointer: {
-              type: 'shadow'
-            }
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value',
-            name: '게임수',
-            interval: 5
-          },
-          {
-            type: 'value',
-            name: '평균등수',
-            min: 0,
-            max: 8,
-            interval: 8,
-            inverse: true
-          }
-        ],
-        series: [
-          {
-            name: this.legend_list[0],
-            type: 'bar',
-            stack: 'one',
-            data: chart_data.map(el => el.win)
-          },
-          {
-            name: this.legend_list[1],
-            type: 'bar',
-            stack: 'one',
-            data: chart_data.map(el => el.good)
-          },
-          {
-            name: this.legend_list[2],
-            type: 'bar',
-            stack: 'one',
-            data: chart_data.map(el => el.bad)
-          },
-          {
-            name: this.legend_list[3],
-            type: 'line',
-            yAxisIndex: 1,
-            data: chart_data.map(el => (el.avg.reduce((a, b) => a + b) / el.avg.length).toFixed(2))
-          }
-        ]
-      }
+      this.compTable = chart_data;
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+.banner_wrap {
+  text-align: center;
+}
 ul {
   list-style-type: none;
   padding: 0;
@@ -397,6 +575,9 @@ div.main-container {
     >.wide {
       width: 100%;
     }
+    .placement-list {
+      background-color: #fff;
+    }
     >.box-title {
       padding-left: 10px;
       font-weight: bold;
@@ -423,6 +604,37 @@ div.main-container {
         width: 20px;
         height: 3px;
       }
+    }
+  }
+}
+
+.placement-list {
+  font-size: 0.8em;
+  .img-hero-cell {
+    width: 30px;
+    height: 36px;
+    margin: -10px;
+  }
+  img.img-hero-cell + b {
+    padding-left: 20px;
+  }
+  ul.progress-include-span {
+    display: flex;
+    margin-bottom: 0px;
+    .progress-in-cell {
+      flex: 80% 1 1;
+      align-self: center;
+    }
+    .span-with-progress {
+      flex: 20% 1 1;
+      text-indent: 5px;
+      font-size: 0.9em;
+    }
+  }
+  .cell {
+    &.above {
+      font-weight: bold;
+      color: #3d95e5;
     }
   }
 }
