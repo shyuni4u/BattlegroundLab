@@ -3,14 +3,14 @@
     <div class="filter">
       <div class="div-form">
         <b-form class="filter_form">
-          <b-input-group class="mb-2 datepicker">
-            <label for="datepicker-start">시작</label>
-            <b-form-datepicker id="datepicker-start" size="sm" v-model="startDate" class="mb-2" min="2020.02.28" @input="change_filter()"></b-form-datepicker>
-            <label for="datepicker-end"> ~ 종료</label>
-            <b-form-datepicker id="datepicker-end" size="sm" v-model="endDate" class="mb-2" min="2020.02.28" @input="change_filter()"></b-form-datepicker>
+          <b-input-group class="datepicker">
+            <label for="datepicker-start">{{ $t('dateStart') }}</label>
+            <b-form-datepicker id="datepicker-start" size="sm" v-model="startDate" min="2020.02.27" @input="change_filter()"></b-form-datepicker>
+            <label for="datepicker-end"> ~ {{ $t('dateEnd') }}</label>
+            <b-form-datepicker id="datepicker-end" size="sm" v-model="endDate" min="2020.02.27" @input="change_filter()"></b-form-datepicker>
           </b-input-group>
-          <b-input-group class="mb-2 streamer">
-            <span class="">선택</span>
+          <b-input-group class="streamer">
+            <span class="">{{ $t('select') }}</span>
             <div class="custom-control custom-checkbox" v-for="entry of streamers" :key="entry.id">
               <input type="checkbox" :id="entry.id" :value="entry.id" class="custom-control-input" v-model="checkStremers" @change="change_filter()">
               <label class="custom-control-label" :for="entry.id">{{ entry.name }}</label>
@@ -19,22 +19,32 @@
         </b-form>
       </div>
       <div class="div-title">
-        <h1><b-icon-controller></b-icon-controller> 전장연구소</h1>
+        <div class="title">
+          <h1>{{ $t('pageTitle') }}</h1>
+        </div>
+        <div class="sub">
+          <b-dropdown right size="sm" :text="$t('lang')">
+            <b-dropdown-item-button href="#" v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
+              <flag :iso="entry.flag" v-bind:squared=false />
+              {{ entry.title }}
+            </b-dropdown-item-button>
+          </b-dropdown>
+        </div>
       </div>
     </div>
 
     <div class="banner_wrap">
       <ins class="kakao_ad_area" style="display:none;" 
       data-ad-unit    = "DAN-1jyoczcff0x10" 
-      data-ad-width   = "300" 
-      data-ad-height  = "250"></ins>
+      data-ad-width   = "728" 
+      data-ad-height  = "90"></ins>
     </div>
 
     <div class="main-container">
       <section class="main-info">
         <div class="box">
           <b-tabs card>
-            <b-tab title="영웅" active>
+            <b-tab :title="$t('hero')" active>
               <b-table
               :items="heroTable"
               :fields="heroFields"
@@ -42,6 +52,7 @@
               responsive="sm"
               sort-direction="desc"
               head-variant="dark">
+                <!-- colgroup template -->
                 <template v-slot:table-colgroup="scope">
                   <col
                     v-for="field in scope.fields"
@@ -52,14 +63,26 @@
                       : '250px') }"
                   >
                 </template>
+
+                <!-- thead template -->
+                <template v-slot:head(hero)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(pick_count)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(pick_ratio)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(avg)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(win_count)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(win_ratio)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(good_count)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(good_ratio)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(bad_count)="data">{{ $t(data.label) }}</template>
               
+                <!-- tbody template -->
                 <template v-slot:cell(index)="data">
                   <span class="">{{ data.index + 1 }}</span>
                 </template>
 
                 <template v-slot:cell(hero)="data">
                   <img class="img-hero-cell" :src="getImgUrl(data.value)" :alt="data.value" :thumbnail="getImgUrl('thumbnail')" />
-                  <b class="text-info">{{ capitalizeFLetter(data.value) }}</b>
+                  <b class="text-info">{{ $t(capitalizeFLetter(data.value)) }}</b>
                 </template>
 
                 <template v-slot:cell(pick_count)="data">
@@ -120,24 +143,9 @@
                 <template v-slot:cell(bad_count)="data">
                   <span class="text-danger">{{ data.value }}</span>
                 </template>
-
-                <!--
-                <template v-slot:cell(bad_ratio)="data">
-                  <ul class="progress-include-span">
-                    <li class="progress-in-cell">
-                      <b-progress class="" :max="max_ratio">
-                        <b-progress-bar :value="data.value" variant="danger"></b-progress-bar>
-                      </b-progress>
-                    </li>
-                    <li class="span-with-progress">
-                      <span class="cell">{{ data.value }}%</span>
-                    </li>
-                  </ul>
-                </template>
-                -->
               </b-table>
             </b-tab>
-            <b-tab title="조합">
+            <b-tab :title="$t('comp')">
               <b-table
               :items="compTable"
               :fields="compFields"
@@ -145,6 +153,7 @@
               responsive="sm"
               sort-direction="desc"
               head-variant="dark">
+                <!-- colgroup template -->
                 <template v-slot:table-colgroup="scope">
                   <col
                     v-for="field in scope.fields"
@@ -155,13 +164,25 @@
                       : '250px') }"
                   >
                 </template>
+
+                <!-- thead template -->
+                <template v-slot:head(comp)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(pick_count)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(pick_ratio)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(avg)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(win_count)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(win_ratio)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(good_count)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(good_ratio)="data">{{ $t(data.label) }}</template>
+                <template v-slot:head(bad_count)="data">{{ $t(data.label) }}</template>
               
+                <!-- tbody template -->
                 <template v-slot:cell(index)="data">
                   <span class="">{{ data.index + 1 }}</span>
                 </template>
 
                 <template v-slot:cell(comp)="data">
-                  <b class="text-info">{{ capitalizeFLetter(data.value) }}</b>
+                  <b class="text-info">{{ $t(capitalizeFLetter(data.value)) }}</b>
                 </template>
 
                 <template v-slot:cell(pick_count)="data">
@@ -234,6 +255,8 @@
 <script>
 //import GithubListVue from './GithubList.vue'
 //import ECharts from 'vue-echarts'
+import i18n from '@/plugins/i18n';
+
 import LogData from '@/json/data.json';
 import StreamerData from '@/json/streamer.json';
 
@@ -252,10 +275,22 @@ export default {
     return {
       max_hero_ratio: 20,
       max_comp_ratio: 20,
+      languages: [
+        {
+          flag: 'kr',
+          language: 'kr',
+          title: '한국어'
+        },
+        {
+          flag: 'us',
+          language: 'en',
+          title: 'English'
+        }
+      ],
       max_ratio: 100,
       legend_list: ['1st', '2~4', '5~8', 'AVG'],
       color_list: ['#ffc81b', '#5b6777', '#f15b5d', '#d88d73'],
-      recentUpdate: '2020.03.02 12:36',     //  datetime of updated data
+      recentUpdate: '2020.03.03 12:36',     //  datetime of updated data
       startDate: new Date('2020-02-27T00:00:00+09:00'),
       endDate: new Date(),
       streamers: streamJson,
@@ -272,53 +307,53 @@ export default {
         
         {
           key: 'hero',
-          label: '영웅',
+          label: 'hero',
           sortable: false
         },
         {
           key: 'pick_count',
-          label: '플레이 수',
+          label: 'pick_count',
           sortable: true
         },
         {
           key: 'pick_ratio',
-          label: '픽률',
+          label: 'pick_ratio',
           sortable: true
         },
         {
           key: 'avg',
-          label: '평균등수',
+          label: 'avg_placement',
           sortable: true
         },
         {
           key: 'win_count',
-          label: '1등',
+          label: 'win_count',
           sortable: true
         },
         {
           key: 'win_ratio',
-          label: '1등 확률',
+          label: 'win_ratio',
           sortable: true
         },
         {
           key: 'good_count',
-          label: '순방',
+          label: 'good_count',
           sortable: true
         },
         {
           key: 'good_ratio',
-          label: '순방 확률',
+          label: 'good_ratio',
           sortable: true
         },
         {
           key: 'bad_count',
-          label: '패배',
+          label: 'bad_count',
           sortable: true
         }
         /*
         ,{
           key: 'bad_ratio',
-          label: '확률',
+          label: 'bad_ratio',
           sortable: true
         }
         */
@@ -332,47 +367,47 @@ export default {
         
         {
           key: 'comp',
-          label: '조합',
+          label: 'comp',
           sortable: false
         },
         {
           key: 'pick_count',
-          label: '플레이 수',
+          label: 'pick_count',
           sortable: true
         },
         {
           key: 'pick_ratio',
-          label: '픽률',
+          label: 'pick_ratio',
           sortable: true
         },
         {
           key: 'avg',
-          label: '평균등수',
+          label: 'avg_placement',
           sortable: true
         },
         {
           key: 'win_count',
-          label: '1등',
+          label: 'win_count',
           sortable: true
         },
         {
           key: 'win_ratio',
-          label: '1등 확률',
+          label: 'win_ratio',
           sortable: true
         },
         {
           key: 'good_count',
-          label: '순방',
+          label: 'good_count',
           sortable: true
         },
         {
           key: 'good_ratio',
-          label: '순방 확률',
+          label: 'good_ratio',
           sortable: true
         },
         {
           key: 'bad_count',
-          label: '패배',
+          label: 'bad_count',
           sortable: true
         }
         /*
@@ -396,6 +431,9 @@ export default {
       scriptEl.async = true;
       document.head.appendChild(scriptEl);
       document.body.appendChild(scriptEl);
+    },
+    changeLocale(locale) {
+      i18n.locale = locale;
     },
     capitalizeFLetter (str) {
       return str[0].toUpperCase() + str.slice(1);
@@ -533,6 +571,7 @@ ul {
 }
 .filter {
   margin: 0px;
+  margin-bottom: 5px;
   background-color: #333;
   color: #fff;
   font-size: 0.9rem;
@@ -558,10 +597,18 @@ ul {
   }
   .div-title {
     flex: 40% 1 1;
-    font-weight: bold;
-    letter-spacing: 5px;
-    text-align: center;
+    display: flex;
     align-self: center;
+    .title {
+      flex: calc(100% - 180px) 0 0;
+      font-weight: bold;
+      text-align: center;
+    }
+    .sub {
+      flex: 180px 0 0;
+      text-align: center;
+      align-self: center;
+    }
   }
 }
 div.main-container {
@@ -613,8 +660,8 @@ div.main-container {
   font-size: 0.8em;
   .img-hero-cell {
     width: 30px;
-    height: 36px;
-    margin: -10px;
+    height: 40px;
+    margin: -12px;
   }
   img.img-hero-cell + b {
     padding-left: 20px;
