@@ -9,6 +9,7 @@ const messages = {
     menuHome: ``,
     date: `Date`,
     pageTitle: `Battleground Lab`,
+    player: `Creator`,
     dateStart: `Start`,
     dateEnd: `End`,
     select: `Select`,
@@ -22,6 +23,12 @@ const messages = {
     good_count: `Win`,
     good_ratio: `Win ratio`,
     bad_count: `Defeat`,
+
+    Dtn_seho: `dtn_seho`,
+    Educated_Collins: `Educated_Collins`,
+    EndoZoa: `EndoZoa`,
+    Portialyn: `portialyn`,
+    Bebe872: `bebe872`,
 
     Alexstrasa: `Alexstrasa`,
     Reno: `Reno`,
@@ -87,6 +94,7 @@ const messages = {
     menuHome: ``,
     date: `기간`,
     pageTitle: `전장 연구소`,
+    player: `스트리머`,
     dateStart: `시작`,
     dateEnd: `종료`,
     select: `선택`,
@@ -100,6 +108,12 @@ const messages = {
     good_count: `순방`,
     good_ratio: `순방 확률`,
     bad_count: `패배`,
+
+    Dtn_seho: `정세호`,
+    Educated_Collins: `Educated_Collins`,
+    EndoZoa: `EndoZoa`,
+    Portialyn: `포셔`,
+    Bebe872: `bebe872`,
 
     Alexstrasa: `알렉스트라자`,
     Reno: `리노 잭슨`,
@@ -156,7 +170,7 @@ const messages = {
     Mech: `기계`,
     Divine_lightfang: `천보 빛송곳니 혼합`,
     Stack: `다릴영능`,
-    Watcher_weaver_jugglers: `명인 감시자 곡예사 혼합`,
+    Watcher_weaver_jugglers: `명인 감시자 곡예사`,
     Pogo: `콩콩이`,
     One_lv_dragon: `1렙 용`
   }

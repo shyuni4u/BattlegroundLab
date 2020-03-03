@@ -32,14 +32,14 @@
         </div>
       </div>
     </div>
-
+<!--
     <div class="banner_wrap">
       <ins class="kakao_ad_area" style="display:none;" 
       data-ad-unit    = "DAN-1jyoczcff0x10" 
       data-ad-width   = "728" 
       data-ad-height  = "90"></ins>
     </div>
-
+-->
     <div class="main-container">
       <section class="main-info">
         <div class="box">
@@ -59,8 +59,8 @@
                     :key="field.key"
                     :style="{ width: (field.key === 'index' ? '50px'
                       : (field.key === 'pick_count' || field.key === 'win_count' || field.key === 'good_count' || field.key === 'bad_count' || field.key === 'avg') ? '120px'
-                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '200px'
-                      : '250px') }"
+                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '190px'
+                      : '270px') }"
                   >
                 </template>
 
@@ -77,12 +77,12 @@
               
                 <!-- tbody template -->
                 <template v-slot:cell(index)="data">
-                  <span class="">{{ data.index + 1 }}</span>
+                  <span>{{ data.index + 1 }}</span>
                 </template>
 
                 <template v-slot:cell(hero)="data">
                   <img class="img-hero-cell" :src="getImgUrl(data.value)" :alt="data.value" :thumbnail="getImgUrl('thumbnail')" />
-                  <b class="text-info">{{ $t(capitalizeFLetter(data.value)) }}</b>
+                  <b class="text-info show-modal" @click="showDetailHero(data.value)">{{ $t(capitalizeFLetter(data.value)) }} <b-icon-chat class="icon" font-scale="1.2"></b-icon-chat></b>
                 </template>
 
                 <template v-slot:cell(pick_count)="data">
@@ -144,7 +144,26 @@
                   <span class="text-danger">{{ data.value }}</span>
                 </template>
               </b-table>
+
+              <b-modal
+              ref="hero-modal"
+              size="lg"
+              header-class="modal-header-custom"
+              header-bg-variant="secondary"
+              header-text-variant="white"
+              hide-footer
+              scrollable
+              centered>
+                <template v-slot:modal-header>
+                  <h5><b-icon-info-square class="icon"></b-icon-info-square> {{ heroDetail }}</h5>
+                </template>
+                <div class="d-block text-center">
+                  <v-chart class="wide-center" :options="heroPlacement" />
+                </div>
+              </b-modal>
             </b-tab>
+
+
             <b-tab :title="$t('comp')">
               <b-table
               :items="compTable"
@@ -160,8 +179,8 @@
                     :key="field.key"
                     :style="{ width: (field.key === 'index' ? '50px'
                       : (field.key === 'pick_count' || field.key === 'win_count' || field.key === 'good_count' || field.key === 'bad_count' || field.key === 'avg') ? '120px'
-                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '200px'
-                      : '250px') }"
+                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '190px'
+                      : '270px') }"
                   >
                 </template>
 
@@ -182,7 +201,7 @@
                 </template>
 
                 <template v-slot:cell(comp)="data">
-                  <b class="text-info">{{ $t(capitalizeFLetter(data.value)) }}</b>
+                  <b class="text-info show-modal" @click="showDetailComp(data.value)">{{ $t(capitalizeFLetter(data.value)) }} <b-icon-chat class="icon" font-scale="1.2"></b-icon-chat></b>
                 </template>
 
                 <template v-slot:cell(pick_count)="data">
@@ -244,6 +263,23 @@
                   <span class="text-danger">{{ data.value }}</span>
                 </template>
               </b-table>
+
+              <b-modal
+              ref="comp-modal"
+              size="lg"
+              header-class="modal-header-custom"
+              header-bg-variant="secondary"
+              header-text-variant="white"
+              hide-footer
+              scrollable
+              centered>
+                <template v-slot:modal-header>
+                  <h5><b-icon-info-square class="icon"></b-icon-info-square> {{ compDetail }}</h5>
+                </template>
+                <div class="d-block text-center">
+                  <v-chart class="wide-center" :options="compPlacement" />
+                </div>
+              </b-modal>
             </b-tab>
           </b-tabs>
         </div>
@@ -254,27 +290,27 @@
 
 <script>
 //import GithubListVue from './GithubList.vue'
-//import ECharts from 'vue-echarts'
+import ECharts from 'vue-echarts'
 import i18n from '@/plugins/i18n';
 
 import LogData from '@/json/data.json';
 import StreamerData from '@/json/streamer.json';
 
-//import 'echarts/lib/chart/line'
-//import 'echarts/lib/chart/bar';
-//import 'echarts/lib/component/tooltip';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/component/tooltip';
 //import 'echarts/lib/component/title';
 //import 'echarts/lib/component/legend';
 
 export default {
   name: 'present',
-  //components: { 'v-chart': ECharts },
+  components: { 'v-chart': ECharts },
   data: () => {
     const streamJson = StreamerData;
     //let that = this;
     return {
       max_hero_ratio: 20,
       max_comp_ratio: 20,
+      log: LogData,
       languages: [
         {
           flag: 'kr',
@@ -295,9 +331,9 @@ export default {
       endDate: new Date(),
       streamers: streamJson,
       checkStremers: streamJson.map(el => el.id),
+      heroDetail: 'Afk',
+      compDetail: 'Beast',
       heroTable: {},   //  hero chart option
-      compPlacement: {},   //  comp chart option
-      log: LogData,
       heroFields: [
         {
           key: 'index',
@@ -417,7 +453,9 @@ export default {
           sortable: true
         }
         */
-      ]
+      ],
+      heroPlacement: {},   //  detail hero chart option
+      compPlacement: {}   //  detail comp chart option
     }
   },
   created() {
@@ -556,6 +594,108 @@ export default {
         else return -1;
       });
       this.compTable = chart_data;
+    },
+    showDetailHero (param) {
+      let arrFilter = this.array_filter_log().filter(el => {
+        return el.hero === param;
+      });
+      let name_datas = this.getChartData(arrFilter, 'name');
+      let comp_datas = this.getChartData(arrFilter, 'comp');
+
+      this.heroPlacement = {
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        series: [
+          {
+            name: i18n.t('player'),
+            type: 'pie',
+            selectedMode: 'single',
+            radius: [0, '50%'],
+            label: {
+              position: 'inner'
+            },
+            labelLine: {
+              show: false
+            },
+            data: name_datas
+          },
+          {
+            name: i18n.t('comp'),
+            type: 'pie',
+            radius: ['65%', '90%'],
+            data: comp_datas
+          }
+        ]
+      }
+      //this.$refs['hero-modal'].title = i18n.t(this.capitalizeFLetter(param))
+      this.heroDetail = i18n.t(this.capitalizeFLetter(param));
+      this.$refs['hero-modal'].show();
+    },
+    showDetailComp (param) {
+      let arrFilter = this.array_filter_log().filter(el => {
+        return el.comp === param;
+      });
+      let name_datas = this.getChartData(arrFilter, 'name');
+      let comp_datas = this.getChartData(arrFilter, 'hero');
+
+      this.compPlacement = {
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        series: [
+          {
+            name: i18n.t('player'),
+            type: 'pie',
+            selectedMode: 'single',
+            radius: [0, '50%'],
+            label: {
+              position: 'inner'
+            },
+            labelLine: {
+              show: false
+            },
+            data: name_datas
+          },
+          {
+            name: i18n.t('comp'),
+            type: 'pie',
+            radius: ['65%', '90%'],
+            data: comp_datas
+          }
+        ]
+      }
+      //this.$refs['comp-modal'].title = i18n.t(this.capitalizeFLetter(param))
+      this.compDetail = i18n.t(this.capitalizeFLetter(param));
+      this.$refs['comp-modal'].show();
+    },
+    getChartData(arr, mode) {
+      let that = this;
+      let log_list = arr.map(el => el[mode]);
+      let arr_name = log_list.filter(function (data, index) {  //  remove duplicated data
+        return log_list.indexOf(data) === index;
+      });
+      let result_data = [];
+      arr_name.forEach((el) => {
+        result_data.push({
+          name: i18n.t(that.capitalizeFLetter(el)),
+          value: 0
+        });
+      });
+
+      arr.forEach((el) => {
+        //arr_hero.indexOf(el.hero): idx of { result_data[idx] }
+        const idx = arr_name.indexOf(el[mode]);
+        result_data[idx].value++;
+      });
+
+      result_data.sort((el1, el2) => {     //  sort datas
+        if (el1.value < el2.value) return 1;
+        else return -1;
+      });
+      return result_data;
     }
   }
 }
@@ -564,6 +704,25 @@ export default {
 <style scoped lang="scss">
 .banner_wrap {
   text-align: center;
+}
+.show-modal {
+  cursor: pointer;
+  &:not(:hover) {
+    .icon {
+      display: none;
+    }
+  }
+}
+.wide-center {
+  text-align: center;
+  margin: auto;
+}
+.modal-header-custom {
+  h5 {
+    .icon {
+      font-size: 26px;
+    }
+  }
 }
 ul {
   list-style-type: none;
