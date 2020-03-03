@@ -90,7 +90,7 @@ const messages = {
     One_lv_dragon: `One_lv_dragon`
   },
   kr: {
-    lang: `언어`,
+    lang: `Lang`,
     menuHome: ``,
     date: `기간`,
     pageTitle: `전장 연구소`,
