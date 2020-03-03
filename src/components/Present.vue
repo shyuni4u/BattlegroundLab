@@ -32,14 +32,14 @@
         </div>
       </div>
     </div>
-<!--
+
     <div class="banner_wrap">
       <ins class="kakao_ad_area" style="display:none;" 
       data-ad-unit    = "DAN-1jyoczcff0x10" 
       data-ad-width   = "728" 
       data-ad-height  = "90"></ins>
     </div>
--->
+
     <div class="main-container">
       <section class="main-info">
         <div class="box">
