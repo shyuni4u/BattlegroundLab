@@ -23,6 +23,12 @@
           <h1>{{ $t('pageTitle') }}</h1>
         </div>
         <div class="sub">
+          <!--
+          <b-button>
+            https://docs.google.com/spreadsheets/d/13ZwYlseXl82gXaEXvbvFe0QmtV2gBJB4-m8Hn40Cd-Y/edit#gid=13835457
+          </b-button>
+          쿠키: https://thereclub.tistory.com/59
+          -->
           <b-dropdown right size="sm" :text="$t('lang')">
             <b-dropdown-item-button href="#" v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
               <flag :iso="entry.flag" v-bind:squared=false />
@@ -43,6 +49,8 @@
     <div class="main-container">
       <section class="main-info">
         <div class="box">
+
+          
           <b-tabs card>
             <b-tab :title="$t('hero')" active>
               <b-table
@@ -282,6 +290,8 @@
               </b-modal>
             </b-tab>
           </b-tabs>
+
+
         </div>
       </section>
     </div>
