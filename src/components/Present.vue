@@ -27,7 +27,6 @@
           <b-button>
             https://docs.google.com/spreadsheets/d/13ZwYlseXl82gXaEXvbvFe0QmtV2gBJB4-m8Hn40Cd-Y/edit#gid=13835457
           </b-button>
-          쿠키: https://thereclub.tistory.com/59
           -->
           <b-dropdown right size="sm" :text="$t('lang')">
             <b-dropdown-item-button href="#" v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
@@ -469,6 +468,8 @@ export default {
     }
   },
   created() {
+    this.checkStremers = (this.getCookieArray('bl_checkStremers') === null ? this.checkStremers : this.getCookieArray('bl_checkStremers'));
+    i18n.locale = (this.getCookie('bl_lang') || 'kr');
     this.change_filter();
     this.load_adfit();
   },
@@ -480,17 +481,41 @@ export default {
       document.head.appendChild(scriptEl);
       document.body.appendChild(scriptEl);
     },
-    changeLocale(locale) {
+    changeLocale (locale) {
       i18n.locale = locale;
+      this.setCookie('bl_lang', locale, 365);
     },
+    /* util start */
     capitalizeFLetter (str) {
       return str[0].toUpperCase() + str.slice(1);
     },
-    getImgUrl(path) {
+    getImgUrl (path) {
       let image = require.context('@/assets/hero/', false, /\.png$/);
       return image('./' + path + '.png');
     },
+    setCookie (name, value, exp) {
+      let date = new Date();
+      date.setTime(date.getTime() + exp*24*60*60*1000);
+      document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    },
+    getCookie (name) {
+      const value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return value? value[2] : null;
+    },
+    setCookieArray (name, values, exp) {
+      this.setCookie(name, values.join(','), exp);
+    },
+    getCookieArray (name) {
+      let str = this.getCookie(name);
+      if (str === null) return null;
+      return str.split(',');
+    },
+    deleteCookie (name) {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+    },
+    /* util end */
     change_filter () {
+      this.setCookieArray('bl_checkStremers', this.checkStremers, 365);
       this.load_hero_placement();
       this.load_comp_placement();
     },
@@ -681,7 +706,7 @@ export default {
       this.compDetail = i18n.t(this.capitalizeFLetter(param));
       this.$refs['comp-modal'].show();
     },
-    getChartData(arr, mode) {
+    getChartData (arr, mode) {
       let that = this;
       let log_list = arr.map(el => el[mode]);
       let arr_name = log_list.filter(function (data, index) {  //  remove duplicated data
