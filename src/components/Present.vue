@@ -19,22 +19,36 @@
         </b-form>
       </div>
       <div class="div-title">
-        <div class="title">
-          <h1>{{ $t('pageTitle') }}</h1>
-        </div>
-        <div class="sub">
-          <!--
-          <b-button>
-            https://docs.google.com/spreadsheets/d/13ZwYlseXl82gXaEXvbvFe0QmtV2gBJB4-m8Hn40Cd-Y/edit#gid=13835457
+        <b-button class="mr-2" @click="showNotice()">
+          {{ $t('notice') }}
+        </b-button>
+        <a target="_blank" href="https://docs.google.com/spreadsheets/d/13ZwYlseXl82gXaEXvbvFe0QmtV2gBJB4-m8Hn40Cd-Y/edit#gid=13835457">
+          <b-button class="mr-2">
+            {{ $t('send_data') }}
           </b-button>
-          -->
-          <b-dropdown right size="sm" :text="$t('lang')">
-            <b-dropdown-item-button href="#" v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
-              <flag :iso="entry.flag" v-bind:squared=false />
-              {{ entry.title }}
-            </b-dropdown-item-button>
-          </b-dropdown>
-        </div>
+        </a>
+        <b-dropdown right size="sm" :text="$t('lang')">
+          <b-dropdown-item-button href="#" v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
+            <flag :iso="entry.flag" v-bind:squared=false />
+            {{ entry.title }}
+          </b-dropdown-item-button>
+        </b-dropdown>
+  
+
+        <b-modal
+        ref="notice-modal"
+        size="md"
+        header-class="modal-header-custom"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        :title="$t('notice')"
+        hide-footer
+        scrollable
+        centered>
+          <ul>
+            <li v-for="el in noticeList" :key="el" v-html="$t(el).split('\n').join('<br/>')" class="li-notice"></li>
+          </ul>
+        </b-modal>
       </div>
     </div>
 
@@ -342,6 +356,9 @@ export default {
       checkStremers: streamJson.map(el => el.id),
       heroDetail: 'Afk',
       compDetail: 'Beast',
+      noticeList: [
+        'notice_20200304'
+      ],
       heroTable: {},   //  hero chart option
       heroFields: [
         {
@@ -630,6 +647,9 @@ export default {
       });
       this.compTable = chart_data;
     },
+    showNotice () {
+      this.$refs['notice-modal'].show();
+    },
     showDetailHero (param) {
       let arrFilter = this.array_filter_log().filter(el => {
         return el.hero === param;
@@ -759,6 +779,9 @@ export default {
     }
   }
 }
+.li-notice {
+  font-size: 0.8rem;
+}
 ul {
   list-style-type: none;
   padding: 0;
@@ -793,6 +816,9 @@ ul {
     flex: 40% 1 1;
     display: flex;
     align-self: center;
+    .mr-2 {
+      font-size: 0.875rem;
+    }
     .title {
       flex: calc(100% - 180px) 0 0;
       font-weight: bold;
