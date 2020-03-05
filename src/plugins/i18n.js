@@ -63,6 +63,7 @@ const messages = {
     Nefarian: `Nefarian`,
     Jaraxxus: `Jaraxxus`,
     Patches: `Patches`,
+    Maleficent: `Maleficent`,
 
     Guardian: `Guardian`,
     Mixed_mixed: `Mixed_mixed`,
@@ -162,6 +163,7 @@ const messages = {
     Nefarian: `네파리안`,
     Jaraxxus: `군주 자락서스`,
     Patches: `해적 패치스`,
+    Maleficent: `밀리피센트 마나스톰`,
 
     Guardian: `코발트`,
     Mixed_mixed: `혼합체 다수효과`,
