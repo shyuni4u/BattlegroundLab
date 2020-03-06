@@ -78,10 +78,10 @@
                   <col
                     v-for="field in scope.fields"
                     :key="field.key"
-                    :style="{ width: (field.key === 'index' ? '50px'
+                    :style="{ width: (field.key === 'index' ? '40px'
                       : (field.key === 'pick_count' || field.key === 'win_count' || field.key === 'good_count' || field.key === 'bad_count' || field.key === 'avg') ? '120px'
-                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '190px'
-                      : '270px') }"
+                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '180px'
+                      : '210px') }"
                   >
                 </template>
 
@@ -94,7 +94,6 @@
                 <template v-slot:head(win_ratio)="data">{{ $t(data.label) }}</template>
                 <template v-slot:head(good_count)="data">{{ $t(data.label) }}</template>
                 <template v-slot:head(good_ratio)="data">{{ $t(data.label) }}</template>
-                <template v-slot:head(bad_count)="data">{{ $t(data.label) }}</template>
               
                 <!-- tbody template -->
                 <template v-slot:cell(index)="data">
@@ -160,10 +159,6 @@
                     </li>
                   </ul>
                 </template>
-
-                <template v-slot:cell(bad_count)="data">
-                  <span class="text-danger">{{ data.value }}</span>
-                </template>
               </b-table>
 
               <b-modal
@@ -198,10 +193,10 @@
                   <col
                     v-for="field in scope.fields"
                     :key="field.key"
-                    :style="{ width: (field.key === 'index' ? '50px'
+                    :style="{ width: (field.key === 'index' ? '40px'
                       : (field.key === 'pick_count' || field.key === 'win_count' || field.key === 'good_count' || field.key === 'bad_count' || field.key === 'avg') ? '120px'
-                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '190px'
-                      : '270px') }"
+                      : (field.key === 'pick_ratio' || field.key === 'win_ratio' || field.key === 'good_ratio' || field.key === 'bad_ratio') ? '180px'
+                      : '210px') }"
                   >
                 </template>
 
@@ -214,7 +209,6 @@
                 <template v-slot:head(win_ratio)="data">{{ $t(data.label) }}</template>
                 <template v-slot:head(good_count)="data">{{ $t(data.label) }}</template>
                 <template v-slot:head(good_ratio)="data">{{ $t(data.label) }}</template>
-                <template v-slot:head(bad_count)="data">{{ $t(data.label) }}</template>
               
                 <!-- tbody template -->
                 <template v-slot:cell(index)="data">
@@ -278,10 +272,6 @@
                       <span :class="(data.value > 90) ? 'cell above' : 'cell'">{{ data.value.toFixed(2) }}%</span>
                     </li>
                   </ul>
-                </template>
-
-                <template v-slot:cell(bad_count)="data">
-                  <span class="text-danger">{{ data.value }}</span>
                 </template>
               </b-table>
 
@@ -406,19 +396,7 @@ export default {
           key: 'good_ratio',
           label: 'good_ratio',
           sortable: true
-        },
-        {
-          key: 'bad_count',
-          label: 'bad_count',
-          sortable: true
         }
-        /*
-        ,{
-          key: 'bad_ratio',
-          label: 'bad_ratio',
-          sortable: true
-        }
-        */
       ],
       compFields: [
         {
@@ -466,19 +444,7 @@ export default {
           key: 'good_ratio',
           label: 'good_ratio',
           sortable: true
-        },
-        {
-          key: 'bad_count',
-          label: 'bad_count',
-          sortable: true
         }
-        /*
-        ,{
-          key: 'bad_ratio',
-          label: '확률',
-          sortable: true
-        }
-        */
       ],
       heroPlacement: {},   //  detail hero chart option
       compPlacement: {}   //  detail comp chart option
