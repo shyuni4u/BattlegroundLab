@@ -508,7 +508,11 @@ export default {
     },
     getImgUrl (path) {
       let image = require.context('@/assets/hero/', false, /\.png$/);
-      return image('./' + path + '.png');
+      try {
+        return image('./' + path + '.png');
+      } catch {
+        return null;
+      }
     },
     setCookie (name, value, exp) {
       let date = new Date();
