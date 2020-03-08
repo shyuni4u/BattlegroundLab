@@ -65,6 +65,7 @@ const messages = {
     Patches: `Patches`,
     Maleficent: `Maleficent`,
     Millhouse: `Maleficent`,
+    Wagtoggle:  `Wagtoggle`,
 
     Guardian: `Guardian`,
     Mixed_none: `Mixed_none`,
@@ -77,6 +78,7 @@ const messages = {
     Dragon_divine: `Dragon_divine`,
     Dragon_battlecry: `Dragon_battlecry`,
     Beast_deathrattle: `Beast_deathrattle`,
+    Beast_none: `Beast_none`,
     Murloc_mixed: `Murloc_mixed`,
     Mech_none: `Mech_none`,
     Mech_mixed: `Mech_mixed`,
@@ -166,6 +168,7 @@ const messages = {
     Patches: `해적 패치스`,
     Maleficent: `밀리피센트 마나스톰`,
     Millhouse: `밀하우스 마나스톰`,
+    Wagtoggle: `여왕 왜그토글`,
 
     Guardian: `코발트`,
     Mixed_none: `혼합체`,
@@ -177,6 +180,7 @@ const messages = {
     Dragon_mixed: `용 다수효과`,
     Dragon_divine: `용 천상의보호막`,
     Dragon_battlecry: `용 전투의함성`,
+    Beast_none: `야수`,
     Beast_deathrattle: `야수 죽음의메아리`,
     Murloc_mixed: `멀록 다수효과`,
     Mech_none: `기계`,

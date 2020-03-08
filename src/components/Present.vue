@@ -306,7 +306,7 @@
 import ECharts from 'vue-echarts'
 import i18n from '@/plugins/i18n';
 
-import LogData from '@/json/data_0307.json';
+import LogData from '@/json/data_0308.json';
 import StreamerData from '@/json/streamer.json';
 
 import 'echarts/lib/chart/pie';
