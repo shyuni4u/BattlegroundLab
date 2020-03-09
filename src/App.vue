@@ -41,8 +41,37 @@
         </b-navbar>
       </div>
     </div>
-    <div id="container">
-      <router-view />
+    <div id="body-wrapper">
+
+      <aside id="t-ad">
+        <ins class="kakao_ad_area" style="display:none;" 
+        data-ad-unit    = "DAN-ureklmg6kg8i" 
+        data-ad-width   = "320" 
+        data-ad-height  = "100"></ins>
+      </aside>
+
+      <aside id="l-ad">
+        <div class="ad-wrapper">
+          <ins class="kakao_ad_area" style="display:none;" 
+          data-ad-unit    = "DAN-1jyoczcff0x10" 
+          data-ad-width   = "160" 
+          data-ad-height  = "600"></ins>
+        </div>
+      </aside>
+
+      <div id="container">
+        <router-view />
+      </div>
+
+      <aside id="r-ad">
+        <div class="ad-wrapper">
+          <ins class="kakao_ad_area" style="display:none;" 
+          data-ad-unit    = "DAN-qxlk5lq8xx0i" 
+          data-ad-width   = "160" 
+          data-ad-height  = "600"></ins>
+        </div>
+      </aside>
+
     </div>
     <div id="footer">
       현재 백수라 시간이 있어서 만들어보았습니다. 피드백 및 연락은 메일로 부탁드립니다.<br/>
@@ -168,11 +197,44 @@ export default {
   }
 }
 
-#container {
-  margin: 0 auto;
-  max-width: 1280px;
-  text-align: left;
-  zoom: 1;
+#body-wrapper {
+  width: 100%;
+  display: flex;
+  #container {
+    margin: 0 auto;
+    flex: 1280px 0 1;
+    text-align: left;
+    zoom: 1;
+  }
+  aside {
+    flex: 1;
+    margin: 5px auto;
+    div.ad-wrapper {
+      position: sticky;
+      top: 5px;
+      text-align: center;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  #body-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    #t-ad {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1280px) {
+  #body-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    #l-ad, #r-ad {
+      display: none;
+    }
+  }
 }
 
 #footer {

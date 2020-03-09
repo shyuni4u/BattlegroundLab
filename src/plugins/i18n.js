@@ -218,7 +218,7 @@ const messages = {
 
     noticeList: [
       {
-        header: `## DATA에 관하여 ##`,
+        header: `# DATA에 관하여`,
         content: `아직 쓸만한 전장 API가 없기 때문에 수작업으로 데이터를 수집하고 있습니다.
         
         데이터 추가를 원하시면 <b><a href="https://docs.google.com/spreadsheets/d/13ZwYlseXl82gXaEXvbvFe0QmtV2gBJB4-m8Hn40Cd-Y/edit#gid=13835457" target="_blank">[양식]</a></b>대로 메일(<i>shyuniz@naver.com</i>)로 보내주시기 바랍니다.
