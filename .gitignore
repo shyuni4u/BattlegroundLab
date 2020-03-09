@@ -2,8 +2,16 @@
 node_modules
 
 #dist
-src.zip
-/src
+/src/components
+/src/json
+/src/mixins
+/src/plugins
+/src/router
+/src/store
+/src/utils
+/src/views
+/src/App.vue
+/src/main.js
 
 # Log files
 npm-debug.log*

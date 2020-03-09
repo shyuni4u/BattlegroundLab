@@ -46,10 +46,10 @@
       <aside id="t-ad">
         <ins class="kakao_ad_area" style="display:none;" 
         data-ad-unit    = "DAN-ureklmg6kg8i" 
-        data-ad-width   = "320" 
-        data-ad-height  = "100"></ins>
+        data-ad-width   = "728" 
+        data-ad-height  = "90"></ins>
       </aside>
-
+      <!--
       <aside id="l-ad">
         <div class="ad-wrapper">
           <ins class="kakao_ad_area" style="display:none;" 
@@ -58,11 +58,11 @@
           data-ad-height  = "600"></ins>
         </div>
       </aside>
-
+      -->
       <div id="container">
         <router-view />
       </div>
-
+      <!--
       <aside id="r-ad">
         <div class="ad-wrapper">
           <ins class="kakao_ad_area" style="display:none;" 
@@ -71,7 +71,7 @@
           data-ad-height  = "600"></ins>
         </div>
       </aside>
-
+      -->
     </div>
     <div id="footer">
       현재 백수라 시간이 있어서 만들어보았습니다. 피드백 및 연락은 메일로 부탁드립니다.<br/>
@@ -200,6 +200,11 @@ export default {
 #body-wrapper {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  #t-ad {
+    margin: 5px auto 0px;
+  }
   #container {
     margin: 0 auto;
     flex: 1280px 0 1;
@@ -221,9 +226,11 @@ export default {
   #body-wrapper {
     display: flex;
     flex-wrap: nowrap;
+    /*
     #t-ad {
       display: none;
     }
+    */
   }
 }
 
@@ -231,9 +238,11 @@ export default {
   #body-wrapper {
     display: flex;
     flex-wrap: wrap;
+    /*
     #l-ad, #r-ad {
       display: none;
     }
+    */
   }
 }
 
