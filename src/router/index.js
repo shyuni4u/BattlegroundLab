@@ -11,19 +11,31 @@ const routes = [
     component: () => 
       import("../views/Home.vue")
   },
+  {
+    path: "/notice",
+    name: "notice",
+    component: () =>
+      import("../views/Notice.vue")
+  },
+  {
+    path: "/creator",
+    name: "creator",
+    component: () =>
+      import("../views/Creator.vue")
+  },
+  {
+    path: "/uploader",
+    name: "uploader",
+    component: () =>
+      import("../views/Uploader.vue")
+  },
+  {
+    path: "/upload",
+    name: "upload",
+    component: () =>
+      import("../views/Upload.vue")
+  }
   /*
-  {
-    path: "/project/smart_factory",
-    name: "sub_smartfactory",
-    component: () =>
-      import("../views/SubSmartfactory.vue")
-  },
-  {
-    path: "/project/android",
-    name: "sub_android",
-    component: () =>
-      import("../views/SubAndroid.vue")
-  },
   {
     path: "/study",
     name: "study",

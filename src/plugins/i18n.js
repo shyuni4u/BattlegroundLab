@@ -7,9 +7,14 @@ const messages = {
   en: {
     lang: `Lang`,
     notice: `Notice`,
+    search: `Search`,
     send_data: `Send Data`,
+    notyet: `Coming soon ...`,
     upload: `Upload`,
     menuHome: ``,
+    menuNotice: `Notice`,
+    menuCreator: `Creator`,
+    menuUploader: `Uploader`,
     date: `Date`,
     pageTitle: `Battleground Lab`,
     player: `Creator`,
@@ -97,23 +102,33 @@ const messages = {
     Stack: `Stack`,
     Pogo: `Pogo`,
 
-    notice_20200304: `<i><b>2020.03.04</b></i>
-    <h5>## About Data ##</h5>
-    There is no record API. I am counting by hand.
+    noticeList: [
+      {
+        header: `## About Data ##`,
+        date: `2020.03.04`,
+        content: `There is no record API. I am counting by hand.
 
-    If you want to add data,
-    please send an email to <i>(shyuniz@naver.com)</i> in the form <b>[send data]</b>.
-
-    The DB is not available due to the charge issue. I will improve it later.
-
-    Thank you.`
+        If you want to add data,
+        please send an email to <i>(shyuniz@naver.com)</i> in the <b><a href="https://docs.google.com/spreadsheets/d/13ZwYlseXl82gXaEXvbvFe0QmtV2gBJB4-m8Hn40Cd-Y/edit#gid=13835457" target="_blank">[Form]</a></b>.
+    
+        The DB is not available due to the charge issue. I will improve it later.
+    
+        Thank you.`,
+        desc: `Thank you for your feedback.`
+      }
+    ]
   },
   kr: {
     lang: `Lang`,
     notice: `공지`,
+    search: `검색`,
     send_data: `데이터 보내기`,
+    notyet: `개발 진행중입니다.`,
     upload: `업로드`,
     menuHome: ``,
+    menuNotice: `공지`,
+    menuCreator: `스트리머`,
+    menuUploader: `업로더`,
     date: `기간`,
     pageTitle: `전장 연구소`,
     player: `스트리머`,
@@ -201,15 +216,18 @@ const messages = {
     Stack: `다릴영능`,
     Pogo: `콩콩이`,
 
-    notice_20200304: `<i><b>2020.03.04</b></i>
-    <h5># DATA에 관하여</h5>
-    &nbsp;아직 쓸만한 전장 API가 없기 때문에 수작업으로 데이터를 수집하고 있습니다.
-
-    &nbsp;데이터 추가를 원하시면 <b>[데이터 보내기]</b>의 양식대로 메일(<i>shyuniz@naver.com</i>)로 보내주시기 바랍니다.
-
-    &nbsp;요금 문제로 인하여 DB를 사용 못하고 있습니다. 차후 개선해나가겠습니다.
-
-    &nbsp;피드백 또한 메일로 보내주시면 감사합니다.`
+    noticeList: [
+      {
+        header: `## DATA에 관하여 ##`,
+        content: `아직 쓸만한 전장 API가 없기 때문에 수작업으로 데이터를 수집하고 있습니다.
+        
+        데이터 추가를 원하시면 <b><a href="https://docs.google.com/spreadsheets/d/13ZwYlseXl82gXaEXvbvFe0QmtV2gBJB4-m8Hn40Cd-Y/edit#gid=13835457" target="_blank">[양식]</a></b>대로 메일(<i>shyuniz@naver.com</i>)로 보내주시기 바랍니다.
+    
+        요금 문제로 인하여 DB를 사용 못하고 있습니다. 차후 개선해나가겠습니다.`,
+        date: `2020.03.04`,
+        desc: `피드백 또한 메일로 보내주시면 감사합니다.`
+      }
+    ]
   }
 };
 
