@@ -43,13 +43,13 @@
     </div>
     <div id="body-wrapper">
 
+      <!--
       <aside id="t-ad">
         <ins class="kakao_ad_area" style="display:none;" 
         data-ad-unit    = "DAN-ureklmg6kg8i" 
         data-ad-width   = "728" 
         data-ad-height  = "90"></ins>
       </aside>
-      <!--
       <aside id="l-ad">
         <div class="ad-wrapper">
           <ins class="kakao_ad_area" style="display:none;" 
@@ -196,53 +196,13 @@ export default {
     }
   }
 }
-
 #body-wrapper {
-  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  #t-ad {
-    margin: 5px auto 0px;
-  }
+  justify-content: center;
   #container {
-    margin: 0 auto;
     flex: 1280px 0 1;
     text-align: left;
     zoom: 1;
-  }
-  aside {
-    flex: 1;
-    margin: 5px auto;
-    div.ad-wrapper {
-      position: sticky;
-      top: 5px;
-      text-align: center;
-    }
-  }
-}
-
-@media (min-width: 1280px) {
-  #body-wrapper {
-    display: flex;
-    flex-wrap: nowrap;
-    /*
-    #t-ad {
-      display: none;
-    }
-    */
-  }
-}
-
-@media (max-width: 1280px) {
-  #body-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    /*
-    #l-ad, #r-ad {
-      display: none;
-    }
-    */
   }
 }
 
