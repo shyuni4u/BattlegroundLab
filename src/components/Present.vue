@@ -22,11 +22,20 @@
         <b-button class="mr-2" @click="showNotice()">
           {{ $t('notice') }}
         </b-button>
+
+        <b-button class="mr-2" v-b-modal.modal-1>
+          {{ $t('upload') }}
+        </b-button>
+        <b-modal id="modal-1" title="">
+          <p class="my-4">Cooming soon ...</p>
+        </b-modal>
+
         <a target="_blank" href="https://docs.google.com/spreadsheets/d/13ZwYlseXl82gXaEXvbvFe0QmtV2gBJB4-m8Hn40Cd-Y/edit#gid=13835457">
           <b-button class="mr-2">
             {{ $t('send_data') }}
           </b-button>
         </a>
+
         <b-dropdown right size="sm" :text="$t('lang')">
           <b-dropdown-item-button href="#" v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
             <flag :iso="entry.flag" v-bind:squared=false />
@@ -306,7 +315,7 @@
 import ECharts from 'vue-echarts'
 import i18n from '@/plugins/i18n';
 
-import LogData from '@/json/data_0308.json';
+import LogData from '@/json/data_0309.json';
 import StreamerData from '@/json/streamer.json';
 
 import 'echarts/lib/chart/pie';
