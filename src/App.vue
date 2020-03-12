@@ -25,9 +25,9 @@
               </b-navbar-nav>
 
               <b-navbar-nav class="ml-auto">
-                <b-nav-form>
-                  <b-form-input size="sm" class="mr-sm-2 hidden" :placeholder="$t('search')"></b-form-input>
-                  <b-button size="sm" class="my-2 my-sm-0 hidden" type="submit">{{ $t('search') }}</b-button>
+                <b-nav-form class="hidden">
+                  <b-form-input size="sm" class="mr-sm-2" :placeholder="$t('search')"></b-form-input>
+                  <b-button size="sm" class="mr-sm-2" type="submit">{{ $t('search') }}</b-button>
                 </b-nav-form>
 
                 <b-nav-item-dropdown class="ml-2" :text="$t('lang')" right>
@@ -59,9 +59,11 @@
         </div>
       </aside>
       -->
+
       <div id="container">
         <router-view />
       </div>
+
       <!--
       <aside id="r-ad">
         <div class="ad-wrapper">
@@ -72,6 +74,7 @@
         </div>
       </aside>
       -->
+
     </div>
     <div id="footer">
       현재 백수라 시간이 있어서 만들어보았습니다. 피드백 및 연락은 메일로 부탁드립니다.<br/>
@@ -112,6 +115,29 @@ export default {
           title: 'menuUploader',
           sub: []
         }
+        /*
+        {
+          linkTo: '/static',
+          title: 'menuStatic',
+          sub: [
+            {
+              linkTo: '/creator',
+              title: 'menuCreator',
+              sub: []
+            },
+            {
+              linkTo: '/uploader',
+              title: 'menuUploader',
+              sub: []
+            }
+          ]
+        },
+        {
+          linkTo: '/upload',
+          title: 'menuUpload',
+          sub: []
+        }
+        */
       ],
       languages: [
         {
@@ -128,7 +154,7 @@ export default {
     }
   },
   created () {
-    i18n.locale = (this.getCookie('bl_lang') || 'kr');
+    i18n.locale = (this.getCookie('bl_lang') || 'en');
   },
   methods: {
     changeLocale (locale) {
