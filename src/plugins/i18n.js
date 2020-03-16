@@ -106,6 +106,16 @@ const messages = {
 
     noticeList: [
       {
+        header: `# Deck Tracker Battleground Plugin Development State`,
+        content: `It is being developed to manage records only by installing HDT plugins.
+        
+        The plug-in is nearing completion and we will be developing the server soon.
+        
+        Development is expected to be completed within March, and domains may change when servers are developed.`,
+        date: `2020.03.16`,
+        desc: `Your interest is a great help to me. Thank you.`
+      },
+      {
         header: `## About Data ##`,
         date: `2020.03.04`,
         content: `There is no record API. I am counting by hand.
@@ -221,6 +231,16 @@ const messages = {
     Pogo: `콩콩이`,
 
     noticeList: [
+      {
+        header: `# 덱트래커 전장 로그 플러그인 개발 현황`,
+        content: `플러그인만 설치하면 기록을 관리할 수 있도록 개발 중입니다.
+        
+        플러그인은 거의 완성단계에 있으며 곧 서버를 개발 할 예정입니다.
+
+        3월 이내에 개발이 완료될 예정이며 서버가 개발되면 도메인이 바뀔 수 있습니다.`,
+        date: `2020.03.16`,
+        desc: `여러분의 관심은 저에게 큰 힘이 됩니다. 감사합니다.`
+      },
       {
         header: `# DATA에 관하여`,
         content: `아직 쓸만한 전장 API가 없기 때문에 수작업으로 데이터를 수집하고 있습니다.
