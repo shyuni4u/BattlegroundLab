@@ -107,9 +107,9 @@ const messages = {
     noticeList: [
       {
         header: `# Deck Tracker Battleground Plugin Development State`,
-        content: `It is being developed to manage records only by installing HDT plugins.
+        content: `It is being developed to manage records only by installing HDT plugin.
         
-        The plug-in is nearing completion and we will be developing the server soon.
+        The plugin is nearing completion and we will be developing the server soon.
         
         Development is expected to be completed within March, and domains may change when servers are developed.`,
         date: `2020.03.16`,
