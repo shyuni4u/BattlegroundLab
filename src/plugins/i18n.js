@@ -17,6 +17,7 @@ const messages = {
     menuCreator: `Creator`,
     menuUploader: `Uploader`,
     menuUpload: `Upload`,
+    checkNotice: `Check Notice. Please.`,
     date: `Date`,
     pageTitle: `Battleground Lab`,
     player: `Creator`,
@@ -106,7 +107,17 @@ const messages = {
 
     noticeList: [
       {
-        header: `# Deck Tracker Battleground Plugin Development State`,
+        header: `# Deck Tracker Battleground Plugin Development State 2`,
+        content: `The plugin has been developed.
+
+        You can download it <b><a href="https://github.com/shyuni4u/hdt-battleground-log-plugin/releases" target="_blank">[here]</a></b>.
+
+        The website is still under development. You can check the progress <b><a href="http://battlegroundlab.com" target="_blank">[here]</a></b>.`,
+        date: `2020.03.19`,
+        desc: `Your interest is a great help to me. Thank you.`
+      },
+      {
+        header: `# Deck Tracker Battleground Plugin Development State 1`,
         content: `It is being developed to manage records only by installing HDT plugin.
         
         The plugin is nearing completion and we will be developing the server soon.
@@ -143,6 +154,7 @@ const messages = {
     menuCreator: `스트리머`,
     menuUploader: `업로더`,
     menuUpload: `업로드`,
+    checkNotice: `공지 확인해주세요.`,
     date: `기간`,
     pageTitle: `전장 연구소`,
     player: `스트리머`,
@@ -232,7 +244,17 @@ const messages = {
 
     noticeList: [
       {
-        header: `# 덱트래커 전장 로그 플러그인 개발 현황`,
+        header: `# 덱트래커 전장 로그 플러그인 개발 현황 2`,
+        content: `플러그인이 개발 완료되었습니다.
+
+        <b><a href="https://github.com/shyuni4u/hdt-battleground-log-plugin/releases" target="_blank">[여기]</a></b>에서 다운받을 수 있습니다.
+
+        사이트는 아직 개발중입니다. 진행상황은 <b><a href="http://battlegroundlab.com" target="_blank">[여기]</a></b>에서 확인하실 수 있습니다.`,
+        date: `2020.03.19`,
+        desc: `여러분의 관심은 저에게 큰 힘이 됩니다. 감사합니다.`
+      },
+      {
+        header: `# 덱트래커 전장 로그 플러그인 개발 현황 1`,
         content: `플러그인만 설치하면 기록을 관리할 수 있도록 개발 중입니다.
         
         플러그인은 거의 완성단계에 있으며 곧 서버를 개발 할 예정입니다.
