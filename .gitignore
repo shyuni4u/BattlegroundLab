@@ -1,18 +1,7 @@
-.DS_Store
-node_modules
-
 #dist
-/src/assets
-/src/components
-/src/json
-/src/mixins
-/src/plugins
-/src/router
-/src/store
-/src/utils
-/src/views
-/src/App.vue
-/src/main.js
+node_modules
+public
+src
 
 # Log files
 npm-debug.log*
